@@ -40,4 +40,12 @@ public class GestioneCorsoController {
         gestioneCorsoService.delete(utenteId, corsoId);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping(value = "/subscribe/{utenteId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<List<GestioneCorsoResponseDTO>> subscribe(
+            @PathVariable Long utenteId,
+            @RequestBody List<Long> corsiList
+    ){
+        return ResponseEntity.ok(gestioneCorsoService.subscribe(utenteId, corsiList));
+    }
 }

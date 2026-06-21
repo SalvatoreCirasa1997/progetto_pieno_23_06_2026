@@ -12,4 +12,6 @@ public interface GestioneCorsoService {
     List<GestioneCorsoResponseDTO> getByFilter(GestioneCorsoFilterDTO gestioneCorsoFilterDTO);
 
     void delete(Long utenteId, Long corsoId);
+
+    List<GestioneCorsoResponseDTO> subscribe(Long utenteId, List<Long> corsiList);
 }

@@ -13,6 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +44,21 @@ public class CorsoServiceImpl implements CorsoService {
 
         log.info("Fine del servizio getById per il corso con ID: {}", corsoId);
         return corsoDto;
+    }
+
+    @Override
+    public List<Corso> getByIds(List<Long> corsoIds) {
+        List<Corso> corsi = corsoRepository.findAllById(corsoIds);
+
+        Set<Long> foundIds = corsi.stream().map(Corso::getId).collect(Collectors.toSet());
+
+        List<Long> missingIds = corsoIds.stream().filter(id -> !foundIds.contains(id)).toList();
+
+        if (!missingIds.isEmpty()) {
+            throw new ResourceNotFoundException("Corsi non trovati: " + missingIds);
+        }
+
+        return corsi;
     }
 
     @Override
@@ -87,5 +105,16 @@ public class CorsoServiceImpl implements CorsoService {
         corsoRepository.deleteById(corsoId);
 
         log.info("Fine del servizio delete per il corso con ID: {}", corsoId);
+    }
+
+    @Override
+    public Map<Long, Integer> getMaxParticipantsByCorsoIds(List<Long> corsoIds) {
+        List<Object[]> results = corsoRepository.findMaxParticipantsByCorsoIds(corsoIds);
+
+        return results.stream()
+                .collect(Collectors.toMap(
+                        row -> (Long) row[0],
+                        row -> ((Number) row[1]).intValue()
+                ));
     }
 }
