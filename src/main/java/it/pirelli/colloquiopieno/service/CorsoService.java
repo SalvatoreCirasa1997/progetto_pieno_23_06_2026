@@ -1,7 +1,7 @@
 package it.pirelli.colloquiopieno.service;
 
 
-import it.pirelli.colloquiopieno.dto.CorsoDTO;
+import it.pirelli.colloquiopieno.dto.CorsoRequestDTO;
 import it.pirelli.colloquiopieno.dto.CorsoResponseDTO;
 
 import java.util.List;
@@ -11,9 +11,9 @@ public interface CorsoService {
 
     CorsoResponseDTO getById(Long corsoId);
 
-    CorsoResponseDTO insert(CorsoDTO corsoDTO);
+    CorsoResponseDTO insert(CorsoRequestDTO corsoRequestDTO);
 
-    CorsoResponseDTO update(CorsoDTO corsoDTO, Long corsoId);
+    CorsoResponseDTO update(CorsoRequestDTO corsoRequestDTO, Long corsoId);
 
     void delete(Long corsoId);
 }

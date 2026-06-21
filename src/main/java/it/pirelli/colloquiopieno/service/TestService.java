@@ -1,19 +1,20 @@
 package it.pirelli.colloquiopieno.service;
 
 
-import it.pirelli.colloquiopieno.dto.TestDTO;
+import it.pirelli.colloquiopieno.dto.TestRequestDTO;
+import it.pirelli.colloquiopieno.dto.TestResponseDTO;
 
 import java.util.List;
 
 public interface TestService {
 
-    List<TestDTO> getAll();
+    List<TestResponseDTO> getAll();
 
-    TestDTO getById(Long testId);
+    TestResponseDTO getById(Long testId);
 
-    TestDTO create(TestDTO testDTO);
+    TestResponseDTO create(TestRequestDTO testRequestDTO);
 
-    TestDTO update(Long testId, TestDTO testDTO);
+    TestResponseDTO update(Long testId, TestRequestDTO testRequestDTO);
 
     void delete(Long testId);
 }

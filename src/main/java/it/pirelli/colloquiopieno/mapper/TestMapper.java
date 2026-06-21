@@ -1,6 +1,7 @@
 package it.pirelli.colloquiopieno.mapper;
 
-import it.pirelli.colloquiopieno.dto.TestDTO;
+import it.pirelli.colloquiopieno.dto.TestRequestDTO;
+import it.pirelli.colloquiopieno.dto.TestResponseDTO;
 import it.pirelli.colloquiopieno.entity.Test;
 import org.mapstruct.*;
 
@@ -16,7 +17,7 @@ public interface TestMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "active", ignore = true)
     @Mapping(target = "version", ignore = true)
-    Test toEntity(TestDTO testDTO);
+    Test toEntity(TestRequestDTO testRequestDTO);
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "nome", source = "nome")
@@ -25,16 +26,16 @@ public interface TestMapper {
     @Mapping(target = "cellulare", source = "cellulare")
     @Mapping(target = "indirizzo", source = "indirizzo")
     @Mapping(target = "citta", source = "citta")
-    TestDTO toDto(Test test);
+    TestResponseDTO toDto(Test test);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "active", ignore = true)
     @Mapping(target = "version", ignore = true)
-    void updateEntity(TestDTO testDTO, @MappingTarget Test test);
+    void updateEntity(TestRequestDTO testRequestDTO, @MappingTarget Test test);
 
-    List<TestDTO> toDtoList(List<Test> tests);
+    List<TestResponseDTO> toDtoList(List<Test> tests);
 
-    List<Test> toEntityList(List<TestDTO> testDTOs);
+    List<Test> toEntityList(List<TestRequestDTO> testRequestDTOS);
 }

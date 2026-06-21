@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UtenteDTO {
+public class UtenteRequestDTO {
 
     @NotBlank(message = "Il nome non può essere vuoto")
     @Size(min = 2, max = 50, message = "Il nome deve essere tra 2 e 50 caratteri")

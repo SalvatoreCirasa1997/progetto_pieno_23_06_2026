@@ -12,10 +12,12 @@ import java.io.Serializable;
 @Entity
 @Table(name = "utenti",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_utente_cf", columnNames = "cf")
+                @UniqueConstraint(name = "uk_utente_cf", columnNames = "cf"),
+                @UniqueConstraint(name = "uk_utente_email", columnNames = "email")
         },
         indexes = {
-                @Index(name = "idx_utente_cf", columnList = "cf")
+                @Index(name = "idx_utente_cf", columnList = "cf"),
+                @Index(name = "idx_utente_email", columnList = "email")
         })
 @Data
 @NoArgsConstructor

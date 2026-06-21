@@ -17,30 +17,27 @@ public class GestioneCorsoController {
 
     private final GestioneCorsoService gestioneCorsoService;
 
-    @GetMapping("/get-all")
+    @GetMapping(value = "/get-all", produces = "application/json")
     public ResponseEntity<List<GestioneCorsoResponseDTO>> getAll() {
         return ResponseEntity.ok(gestioneCorsoService.getAll());
     }
 
-    @PostMapping("/get-by-filter")
+    @PostMapping(value = "/get-by-filter", consumes = "application/json", produces = "application/json")
     public ResponseEntity<List<GestioneCorsoResponseDTO>> getByFilter(
             @Valid @RequestBody GestioneCorsoFilterDTO gestioneCorsoFilterDTO
     ) {
         return ResponseEntity.ok(gestioneCorsoService.getByFilter(gestioneCorsoFilterDTO));
     }
 
-    @GetMapping("/get-by-id/{gestioneCorsoId}")
-    public ResponseEntity<GestioneCorsoResponseDTO> getById(
-            @PathVariable Long gestioneCorsoId
-    ) {
-        return ResponseEntity.ok(gestioneCorsoService.getById(gestioneCorsoId));
-    }
-
-    @DeleteMapping("/{gestioneCorsoId}")
+    @DeleteMapping(value = "")
     public ResponseEntity<Void> delete(
-            @PathVariable Long gestioneCorsoId
+            @RequestParam(required = false) Long utenteId,
+            @RequestParam(required = false) Long corsoId
     ) {
-        gestioneCorsoService.delete(gestioneCorsoId);
+        if(utenteId == null && corsoId == null){
+            throw new IllegalArgumentException("Almeno uno dei parametri utenteId o corsoId deve essere fornito");
+        }
+        gestioneCorsoService.delete(utenteId, corsoId);
         return ResponseEntity.ok().build();
     }
 }

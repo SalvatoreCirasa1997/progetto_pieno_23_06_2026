@@ -1,6 +1,7 @@
 package it.pirelli.colloquiopieno.controller;
 
-import it.pirelli.colloquiopieno.dto.TestDTO;
+import it.pirelli.colloquiopieno.dto.TestRequestDTO;
+import it.pirelli.colloquiopieno.dto.TestResponseDTO;
 import it.pirelli.colloquiopieno.service.TestService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,34 +17,34 @@ public class TestController {
 
     private final TestService testService;
 
-    @GetMapping("/get-all")
-    public ResponseEntity<List<TestDTO>> getAll() {
+    @GetMapping(value = "/get-all", produces = "application/json")
+    public ResponseEntity<List<TestResponseDTO>> getAll() {
         return ResponseEntity.ok(testService.getAll());
     }
 
-    @GetMapping("/get-by-id/{testId}")
-    public ResponseEntity<TestDTO> getById(
+    @GetMapping(value = "/get-by-id/{testId}", produces = "application/json")
+    public ResponseEntity<TestResponseDTO> getById(
             @PathVariable Long testId
     ) {
         return ResponseEntity.ok(testService.getById(testId));
     }
 
-    @PostMapping("")
-    public ResponseEntity<TestDTO> create(
-            @Valid @RequestBody TestDTO testDTO
+    @PostMapping(value = "", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<TestResponseDTO> create(
+            @Valid @RequestBody TestRequestDTO testRequestDTO
     ) {
-        return ResponseEntity.ok(testService.create(testDTO));
+        return ResponseEntity.ok(testService.create(testRequestDTO));
     }
 
-    @PutMapping("/{testId}")
-    public ResponseEntity<TestDTO> update(
+    @PutMapping(value = "/{testId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<TestResponseDTO> update(
             @PathVariable Long testId,
-            @Valid @RequestBody TestDTO testDTO
+            @Valid @RequestBody TestRequestDTO testRequestDTO
     ) {
-        return ResponseEntity.ok(testService.update(testId, testDTO));
+        return ResponseEntity.ok(testService.update(testId, testRequestDTO));
     }
 
-    @DeleteMapping("/{testId}")
+    @DeleteMapping(value = "/{testId}")
     public ResponseEntity<Void> delete(
             @PathVariable Long testId
     ) {

@@ -1,6 +1,6 @@
 package it.pirelli.colloquiopieno.controller;
 
-import it.pirelli.colloquiopieno.dto.CorsoDTO;
+import it.pirelli.colloquiopieno.dto.CorsoRequestDTO;
 import it.pirelli.colloquiopieno.dto.CorsoResponseDTO;
 import it.pirelli.colloquiopieno.service.CorsoService;
 import jakarta.validation.Valid;
@@ -18,34 +18,34 @@ public class CorsoController {
 
     private final CorsoService corsoService;
 
-    @GetMapping("/get-all")
+    @GetMapping(value = "/get-all", produces = "application/json")
     public ResponseEntity<List<CorsoResponseDTO>> getAll() {
         return ResponseEntity.ok(corsoService.getAll());
     }
 
-    @GetMapping("/{corsoId}")
+    @GetMapping(value = "/{corsoId}", produces = "application/json")
     public ResponseEntity<CorsoResponseDTO> getById(
             @PathVariable Long corsoId
     ) {
         return ResponseEntity.ok(corsoService.getById(corsoId));
     }
 
-    @PostMapping("")
+    @PostMapping(value = "", consumes = "application/json", produces = "application/json")
     public ResponseEntity<CorsoResponseDTO> insert(
-            @Valid @RequestBody CorsoDTO corsoDTO
+            @Valid @RequestBody CorsoRequestDTO corsoRequestDTO
     ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(corsoService.insert(corsoDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(corsoService.insert(corsoRequestDTO));
     }
 
-    @PutMapping("/{corsoId}")
+    @PutMapping(value = "/{corsoId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<CorsoResponseDTO> update(
-            @Valid @RequestBody CorsoDTO corsoDTO,
-            @PathVariable Long corsoId
+            @PathVariable Long corsoId,
+            @Valid @RequestBody CorsoRequestDTO corsoRequestDTO
     ) {
-        return ResponseEntity.ok(corsoService.update(corsoDTO, corsoId));
+        return ResponseEntity.ok(corsoService.update(corsoRequestDTO, corsoId));
     }
 
-    @DeleteMapping("/{corsoId}")
+    @DeleteMapping(value = "/{corsoId}")
     public ResponseEntity<Void> delete(
             @PathVariable Long corsoId
     ) {

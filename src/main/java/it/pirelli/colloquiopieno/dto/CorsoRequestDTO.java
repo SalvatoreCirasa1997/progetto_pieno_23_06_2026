@@ -1,6 +1,6 @@
 package it.pirelli.colloquiopieno.dto;
 
-import it.pirelli.colloquiopieno.enums.StatoCorsoEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CorsoDTO {
+public class CorsoRequestDTO {
 
     @NotBlank(message = "Il titolo non può essere vuoto")
     @Size(min = 2, max = 100, message = "Il titolo deve essere tra 2 e 100 caratteri")
@@ -23,10 +23,12 @@ public class CorsoDTO {
     private String descrizione;
 
     @NotNull(message = "La data di inizio è obbligatoria")
-    @FutureOrPresent(message = "La data di inizio non può essere precedente a oggi")
+    @Future(message = "La data di inizio non può essere precedente alla data di domani")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataInizio;
 
     @NotNull(message = "La data di fine è obbligatoria")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataFine;
 
     private Integer numeroMassimoPartecipanti;

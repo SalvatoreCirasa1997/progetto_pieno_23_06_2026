@@ -13,9 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TestDTO {
-
-    private Long id;
+public class TestRequestDTO {
 
     @NotBlank(message = "Il nome è obbligatorio")
     @Size(min = 2, max = 100, message = "Il nome deve essere tra 2 e 100 caratteri")

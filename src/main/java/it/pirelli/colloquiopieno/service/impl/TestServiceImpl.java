@@ -1,6 +1,7 @@
 package it.pirelli.colloquiopieno.service.impl;
 
-import it.pirelli.colloquiopieno.dto.TestDTO;
+import it.pirelli.colloquiopieno.dto.TestRequestDTO;
+import it.pirelli.colloquiopieno.dto.TestResponseDTO;
 import it.pirelli.colloquiopieno.entity.Test;
 import it.pirelli.colloquiopieno.exception.DuplicateResourceException;
 import it.pirelli.colloquiopieno.exception.ResourceNotFoundException;
@@ -24,7 +25,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<TestDTO> getAll() {
+    public List<TestResponseDTO> getAll() {
         return testRepository.findAll().stream()
                 .map(testMapper::toDto)
                 .toList();
@@ -32,7 +33,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Transactional(readOnly = true)
-    public TestDTO getById(Long testId) {
+    public TestResponseDTO getById(Long testId) {
         return testRepository.findById(testId)
                 .map(testMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Test", testId));
@@ -40,16 +41,16 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Transactional
-    public TestDTO create(TestDTO testDTO) {
-        if (testRepository.existsByEmail(testDTO.getEmail())) {
-            throw new DuplicateResourceException("Test", "email", testDTO.getEmail());
+    public TestResponseDTO create(TestRequestDTO testRequestDTO) {
+        if (testRepository.existsByEmail(testRequestDTO.getEmail())) {
+            throw new DuplicateResourceException("Test", "email", testRequestDTO.getEmail());
         }
 
-        log.info("Creazione nuovo Test con email: {}", testDTO.getEmail());
+        log.info("Creazione nuovo Test con email: {}", testRequestDTO.getEmail());
 
-        Test testEntity = testMapper.toEntity(testDTO);
+        Test testEntity = testMapper.toEntity(testRequestDTO);
         Test savedEntity = testRepository.save(testEntity);
-        TestDTO savedDTO = testMapper.toDto(savedEntity);
+        TestResponseDTO savedDTO = testMapper.toDto(savedEntity);
 
         log.info("Creato Test con ID: {}", savedDTO.getId());
         return savedDTO;
@@ -57,19 +58,18 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Transactional
-    public TestDTO update(Long testId, TestDTO testDTO) {
-        // Prima recupero l'entità esistente
-        var existingEntity = testRepository.findById(testId)
+    public TestResponseDTO update(Long testId, TestRequestDTO testRequestDTO) {
+        Test existingEntity = testRepository.findById(testId)
                 .orElseThrow(() -> new ResourceNotFoundException("Test", testId));
 
-        if (!existingEntity.getEmail().equals(testDTO.getEmail()) &&
-                testRepository.existsByEmail(testDTO.getEmail())) {
-            throw new DuplicateResourceException("Test", "email", testDTO.getEmail());
+        if (!existingEntity.getEmail().equals(testRequestDTO.getEmail()) &&
+                testRepository.existsByEmail(testRequestDTO.getEmail())) {
+            throw new DuplicateResourceException("Test", "email", testRequestDTO.getEmail());
         }
 
-        testMapper.updateEntity(testDTO, existingEntity);
+        testMapper.updateEntity(testRequestDTO, existingEntity);
 
-        TestDTO updatedDTO = testMapper.toDto(testRepository.save(existingEntity));
+        TestResponseDTO updatedDTO = testMapper.toDto(testRepository.save(existingEntity));
         log.info("Aggiornato Test con ID: {}", testId);
 
         return updatedDTO;
