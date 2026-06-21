@@ -20,4 +20,6 @@ public class CorsoResponseDTO {
     private LocalDate dataFine;
     private Integer numeroMassimoPartecipanti;
     private StatoCorsoEnum stato;
+    private AulaResponseDTO aula;
+    private MateriaResponseDTO materia;
 }

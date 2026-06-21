@@ -30,6 +30,7 @@ public class Corso implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "corso_id_seq", sequenceName = "corso_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "titolo", nullable = false, length = 100)
@@ -50,4 +51,15 @@ public class Corso implements Serializable {
 
     @Column(name = "numero_massimo_partecipanti")
     private Integer numeroMassimoPartecipanti;
+
+
+    //ManyToOne -> Il corso può trovarsi in una sola aula
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_aula", nullable = false)
+    private Aula aula;
+
+    //ManyToOne -> Il corso può avere una sola materia
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_materia", nullable = false)
+    private Materia materia;
 }

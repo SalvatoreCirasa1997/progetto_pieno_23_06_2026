@@ -40,4 +40,10 @@ public class CorsoRequestDTO {
         }
         return !dataInizio.isAfter(dataFine);
     }
+
+    @NotNull(message = "Id aula è obbligatorio")
+    private Long idAula;
+
+    @NotNull(message = "Id materia è obbligatorio")
+    private Long idMateria;
 }

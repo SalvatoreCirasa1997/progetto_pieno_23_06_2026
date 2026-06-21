@@ -22,4 +22,6 @@ public interface CorsoService {
     void delete(Long corsoId);
 
     Map<Long, Integer> getMaxParticipantsByCorsoIds(List<Long> corsiList);
+
+    List<CorsoResponseDTO> getAvailableCourses();
 }

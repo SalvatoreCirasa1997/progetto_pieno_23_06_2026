@@ -1,6 +1,7 @@
 package it.pirelli.colloquiopieno.repository;
 
 import it.pirelli.colloquiopieno.entity.Corso;
+import it.pirelli.colloquiopieno.enums.StatoCorsoEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,6 @@ public interface CorsoRepository extends JpaRepository<Corso,Long> {
 
     @Query("SELECT c.id, c.numeroMassimoPartecipanti FROM Corso c WHERE c.id IN :corsoIds")
     List<Object[]> findMaxParticipantsByCorsoIds(@Param("corsoIds") List<Long> corsoIds);
+
+    List<Corso> findAllByStato(StatoCorsoEnum statoCorsoEnum);
 }

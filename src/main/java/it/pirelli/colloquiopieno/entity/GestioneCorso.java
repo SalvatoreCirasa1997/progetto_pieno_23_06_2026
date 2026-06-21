@@ -6,6 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "gestione_corsi")
@@ -13,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GestioneCorso {
+public class GestioneCorso implements Serializable {
 
     @EmbeddedId
     private GestioneCorsoId id;
@@ -27,4 +31,8 @@ public class GestioneCorso {
     @MapsId("idUtente")
     @JoinColumn(name = "id_utente")
     private Utente utente;
+
+    @Column(name = "data_iscrizione", nullable = false)
+    @CreationTimestamp
+    private LocalDateTime dataIscrizione;
 }

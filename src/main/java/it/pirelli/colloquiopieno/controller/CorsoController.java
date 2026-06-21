@@ -52,4 +52,9 @@ public class CorsoController {
         corsoService.delete(corsoId);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping(name = "/get-available-courses", produces = "application/json")
+    public ResponseEntity<List<CorsoResponseDTO>> getAvailableCourses(){
+        return ResponseEntity.ok(corsoService.getAvailableCourses());
+    }
 }

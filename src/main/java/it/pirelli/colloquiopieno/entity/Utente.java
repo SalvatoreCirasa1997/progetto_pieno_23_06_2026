@@ -30,6 +30,7 @@ public class Utente implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "utente_id_seq", sequenceName = "utente_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "nome", nullable = false, length = 50)

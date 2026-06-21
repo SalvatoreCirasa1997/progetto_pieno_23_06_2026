@@ -1,15 +1,15 @@
 package it.pirelli.colloquiopieno.enums;
 
 public enum StatoCorsoEnum {
-    NON_ANCORA_INIZIATO("Non ancora iniziato"),
-    IN_CORSO("In corso"),
-    COMPLETATO("Completato");
+    NON_ANCORA_INIZIATO(0),
+    IN_CORSO(1),
+    COMPLETATO(2);
 
-    private String value;
+    private Integer value;
 
-    StatoCorsoEnum(String value) {this.value = value;}
+    StatoCorsoEnum(Integer value) {this.value = value;}
 
-    public String getValue() {
+    public Integer getOrder() {
         return value;
     }
 }
