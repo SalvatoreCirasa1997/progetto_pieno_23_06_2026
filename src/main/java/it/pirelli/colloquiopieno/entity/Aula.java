@@ -27,8 +27,8 @@ import java.util.List;
 public class Aula implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @SequenceGenerator(sequenceName = "aula_id_seq", name = "aula_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_aula_id")
+    @SequenceGenerator(sequenceName = "seq_aula_id", name = "aula_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "nome", nullable = false, length = 50)

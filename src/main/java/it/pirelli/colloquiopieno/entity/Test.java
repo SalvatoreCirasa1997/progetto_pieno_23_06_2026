@@ -31,7 +31,8 @@ public class Test implements Serializable {
     private static final long serialVersionUID = 1366165678239170060L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_test_id")
+    @SequenceGenerator(name = "seq_test_id", sequenceName = "test_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "nome", nullable = false, length = 100)
