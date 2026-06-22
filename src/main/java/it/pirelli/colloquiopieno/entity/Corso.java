@@ -31,8 +31,8 @@ public class Corso implements Serializable {
     private static final long serialVersionUID = -672538307770379690L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @SequenceGenerator(name = "corso_id_seq", sequenceName = "corso_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_corso_id")
+    @SequenceGenerator(name = "seq_corso_id", sequenceName = "corso_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "titolo", nullable = false, length = 100)

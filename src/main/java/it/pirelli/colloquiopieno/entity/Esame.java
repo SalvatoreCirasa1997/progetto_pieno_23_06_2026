@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
 public class Esame implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @SequenceGenerator(name = "esame_id_seq", sequenceName = "esame_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_esame_id")
+    @SequenceGenerator(name = "seq_esame_id", sequenceName = "esame_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "nome", nullable = false, length = 100)

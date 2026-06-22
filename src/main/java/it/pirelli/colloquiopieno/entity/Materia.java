@@ -24,8 +24,8 @@ import java.util.List;
 public class Materia implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @SequenceGenerator(sequenceName = "materia_id_seq", name = "seq_materia_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_materia_id")
+    @SequenceGenerator(sequenceName = "seq_materia_id", name = "materia_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "nome", nullable = false, length = 100)
