@@ -7,6 +7,7 @@ import it.pirelli.colloquiopieno.exception.ResourceNotFoundException;
 import it.pirelli.colloquiopieno.mapper.AulaMapper;
 import it.pirelli.colloquiopieno.repository.AulaRepository;
 import it.pirelli.colloquiopieno.service.AulaService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ public class AulaServiceImpl implements AulaService {
     }
 
     @Override
+    @Transactional
     public AulaResponseDTO insert(AulaRequestDTO aulaRequestDTO) {
         log.info("Avvio del servizio insert");
 
@@ -57,6 +59,7 @@ public class AulaServiceImpl implements AulaService {
     }
 
     @Override
+    @Transactional
     public AulaResponseDTO update(Long idAula, AulaRequestDTO aulaRequestDTO) {
         log.info("Avvio del servizio update");
 

@@ -21,6 +21,4 @@ public class MateriaResponseDTO {
     private Integer durata;
     private TipoDurataEnum tipoDurata;
     private Integer cfu;
-    private List<CorsoResponseDTO> corsi;
-    private List<EsameResponseDTO> esami;
 }

@@ -21,5 +21,4 @@ public class AulaResponseDTO {
     private String indirizzo;
     private Boolean hasProiettore;
     private Boolean hasLim;
-    private List<CorsoResponseDTO> corsi = new ArrayList<>();
 }

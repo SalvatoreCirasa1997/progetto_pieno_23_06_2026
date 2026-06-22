@@ -18,7 +18,9 @@ public interface AulaMapper {
     Aula toEntity(AulaRequestDTO dto);
 
     AulaResponseDTO toDto(Aula entity);
+
     List<Aula> toEntityList(List<AulaRequestDTO> dto);
+
     List<AulaResponseDTO> toDtoList(List<Aula> entity);
 
     @Mapping(target = "id", ignore = true)

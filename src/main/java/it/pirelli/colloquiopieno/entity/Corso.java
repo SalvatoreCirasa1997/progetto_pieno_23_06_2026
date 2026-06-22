@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -56,10 +58,14 @@ public class Corso implements Serializable {
     //ManyToOne -> Il corso può trovarsi in una sola aula
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_aula", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Aula aula;
 
     //ManyToOne -> Il corso può avere una sola materia
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_materia", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Materia materia;
 }

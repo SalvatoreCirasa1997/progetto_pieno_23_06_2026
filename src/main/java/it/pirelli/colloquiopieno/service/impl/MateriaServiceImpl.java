@@ -8,6 +8,7 @@ import it.pirelli.colloquiopieno.exception.ResourceNotFoundException;
 import it.pirelli.colloquiopieno.mapper.MateriaMapper;
 import it.pirelli.colloquiopieno.repository.MateriaRepository;
 import it.pirelli.colloquiopieno.service.MateriaService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,7 @@ public class MateriaServiceImpl implements MateriaService {
     }
 
     @Override
+    @Transactional
     public MateriaResponseDTO insert(MateriaRequestDTO materiaRequestDTO) {
         log.info("Avvio del servizio insert per inserire una nuova materia.");
 
@@ -60,6 +62,7 @@ public class MateriaServiceImpl implements MateriaService {
     }
 
     @Override
+    @Transactional
     public MateriaResponseDTO update(Long idMateria, MateriaRequestDTO materiaRequestDTO) {
         log.info("Avvio del servizio update per aggiornare la materia con ID: {}", idMateria);
 
