@@ -4,9 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum TipoDurataEnum {
-    GIORNI(0),
-    MESI(1),
-    ANNI(2);
+    ORE(0),
+    GIORNI(1),
+    MESI(2),
+    ANNI(3);
 
     private Integer value;
 

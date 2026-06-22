@@ -18,6 +18,7 @@ import it.pirelli.colloquiopieno.repository.CorsoRepository;
 import it.pirelli.colloquiopieno.repository.GestioneCorsoRepository;
 import it.pirelli.colloquiopieno.repository.MateriaRepository;
 import it.pirelli.colloquiopieno.service.CorsoService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -93,6 +94,7 @@ public class CorsoServiceImpl implements CorsoService {
     }
 
     @Override
+    @Transactional
     public CorsoResponseDTO insert(CorsoRequestDTO corsoRequestDTO) {
         if(corsoRepository.existsByTitolo(corsoRequestDTO.getTitolo())) {
             throw new IllegalArgumentException("Esiste già un corso con il titolo: " + corsoRequestDTO.getTitolo());
@@ -111,12 +113,15 @@ public class CorsoServiceImpl implements CorsoService {
         corso.setMateria(materia);
 
         CorsoResponseDTO corsoDto = corsoMapper.toDto(corsoRepository.save(corso));
+        corsoDto.setMateria(materiaMapper.toDto(materia));
+        corsoDto.setAula(aulaMapper.toDto(aula));
 
         log.info("Fine del servizio insert per la creazione del corso: {}", corsoRequestDTO.getTitolo());
         return corsoDto;
     }
 
     @Override
+    @Transactional
     public CorsoResponseDTO update(CorsoRequestDTO corsoRequestDTO, Long corsoId) {
         Corso existingCorso = corsoRepository.findById(corsoId)
                 .orElseThrow(() -> new ResourceNotFoundException("Corso", corsoId));

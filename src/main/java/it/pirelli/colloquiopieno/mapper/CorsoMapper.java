@@ -18,13 +18,19 @@ import java.util.List;
 public interface CorsoMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "aula", ignore = true)
+    @Mapping(target = "materia", ignore = true)
     Corso toEntity(CorsoRequestDTO dto);
 
+    @Mapping(target = "aula", ignore = true)
+    @Mapping(target = "materia", ignore = true)
     CorsoResponseDTO toDto(Corso corso);
 
     List<CorsoResponseDTO> toDto(List<Corso> corso);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "aula", ignore = true)
+    @Mapping(target = "materia", ignore = true)
     void updateCorso(CorsoRequestDTO corsoRequestDTO, @MappingTarget Corso existingCorso);
 
     @AfterMapping

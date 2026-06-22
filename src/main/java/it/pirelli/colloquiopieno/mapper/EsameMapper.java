@@ -15,8 +15,10 @@ import java.util.List;
 public interface EsameMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "materia", ignore = true)
     Esame toEntity(EsameRequestDTO dto);
 
+    @Mapping(target = "materia", ignore = true)
     EsameResponseDTO toDto(Esame entity);
 
     List<EsameResponseDTO> toDto(List<Esame> entity);
@@ -24,5 +26,6 @@ public interface EsameMapper {
     List<Esame> toEntityList(List<EsameRequestDTO> dto);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "materia", ignore = true)
     void updateEntity(EsameRequestDTO esameRequestDTO, @MappingTarget Esame existingEsame);
 }

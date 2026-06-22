@@ -26,7 +26,6 @@ public class MateriaRequestDTO {
     private Integer durata;
 
     @NotNull(message = "Il tipo di durata è obbligatorio")
-    @Size(max = 50, message = "Il tipo di durata non può superare i 50 caratteri")
     private TipoDurataEnum tipoDurata;
 
     private Integer cfu;

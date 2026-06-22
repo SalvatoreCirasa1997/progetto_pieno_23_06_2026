@@ -8,9 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,6 +31,4 @@ public class AulaRequestDTO {
     private Boolean hasProiettore = false;
 
     private Boolean hasLim = false;
-
-    private List<CorsoResponseDTO> corsi = new ArrayList<>();
 }

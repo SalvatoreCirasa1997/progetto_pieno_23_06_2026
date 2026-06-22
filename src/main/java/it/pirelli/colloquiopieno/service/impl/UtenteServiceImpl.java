@@ -10,6 +10,7 @@ import it.pirelli.colloquiopieno.mapper.UtenteMapper;
 import it.pirelli.colloquiopieno.repository.UtenteRepository;
 import it.pirelli.colloquiopieno.service.UtenteService;
 import it.pirelli.colloquiopieno.specification.UtenteSpecification;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
@@ -62,6 +63,7 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
+    @Transactional
     public UtenteResponseDTO insert(UtenteRequestDTO utenteRequestDTO) {
         if(utenteRepository.existsByCf(utenteRequestDTO.getCf())) {
             throw new DuplicateResourceException("Utente", "cf", utenteRequestDTO.getCf());
@@ -81,6 +83,7 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
+    @Transactional
     public UtenteResponseDTO update(UtenteRequestDTO utenteRequestDTO, Long utenteId) {
         Utente existingUtente = utenteRepository.findById(utenteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Utente", utenteId));

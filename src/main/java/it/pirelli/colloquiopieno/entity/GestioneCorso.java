@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
@@ -25,11 +27,15 @@ public class GestioneCorso implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idCorso")
     @JoinColumn(name = "id_corso")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Corso corso;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idUtente")
     @JoinColumn(name = "id_utente")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Utente utente;
 
     @Column(name = "data_iscrizione", nullable = false)

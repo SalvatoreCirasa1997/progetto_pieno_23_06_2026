@@ -4,12 +4,14 @@ import it.pirelli.colloquiopieno.dto.EsameRequestDTO;
 import it.pirelli.colloquiopieno.dto.EsameResponseDTO;
 import it.pirelli.colloquiopieno.entity.Esame;
 import it.pirelli.colloquiopieno.entity.Materia;
+import it.pirelli.colloquiopieno.exception.DuplicateResourceException;
 import it.pirelli.colloquiopieno.exception.ResourceNotFoundException;
 import it.pirelli.colloquiopieno.mapper.EsameMapper;
 import it.pirelli.colloquiopieno.mapper.MateriaMapper;
 import it.pirelli.colloquiopieno.repository.EsameRepository;
 import it.pirelli.colloquiopieno.repository.MateriaRepository;
 import it.pirelli.colloquiopieno.service.EsameService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -58,11 +60,16 @@ public class EsameServiceImpl implements EsameService {
     }
 
     @Override
+    @Transactional
     public EsameResponseDTO insert(EsameRequestDTO esameRequestDTO) {
         log.info("Avvio del servizio insert.");
 
         Materia materia = materiaRepository.findById(esameRequestDTO.getIdMateria())
                 .orElseThrow(() -> new ResourceNotFoundException("materia", esameRequestDTO.getIdMateria()));
+
+        if(esameRepository.existsByNome(esameRequestDTO.getNome())) {
+            throw new DuplicateResourceException("Esame", "nome", esameRequestDTO.getNome());
+        }
 
         Esame esame = esameMapper.toEntity(esameRequestDTO);
         esame.setMateria(materia);
@@ -83,6 +90,12 @@ public class EsameServiceImpl implements EsameService {
 
         Materia materia = materiaRepository.findById(esameRequestDTO.getIdMateria())
                 .orElseThrow(() -> new ResourceNotFoundException("materia", esameRequestDTO.getIdMateria()));
+
+        if(!existingEsame.getNome().equals(esameRequestDTO.getNome())){
+            if(esameRepository.existsByNomeAndIdNot(esameRequestDTO.getNome(), idEsame)) {
+                throw new DuplicateResourceException("Esame", "nome", esameRequestDTO.getNome());
+            }
+        }
 
         esameMapper.updateEntity(esameRequestDTO, existingEsame);
         existingEsame.setMateria(materia);
