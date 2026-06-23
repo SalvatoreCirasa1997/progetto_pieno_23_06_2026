@@ -5,6 +5,8 @@ import it.pirelli.colloquiopieno.dto.CorsoResponseDTO;
 import it.pirelli.colloquiopieno.service.CorsoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,13 @@ public class CorsoController {
     @GetMapping(value = "/get-all", produces = "application/json")
     public ResponseEntity<List<CorsoResponseDTO>> getAll() {
         return ResponseEntity.ok(corsoService.getAll());
+    }
+
+    @GetMapping(value = "/paged", produces = "application/json")
+    public ResponseEntity<Page<CorsoResponseDTO>> getAllPaged(
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(corsoService.getAll(pageable));
     }
 
     @GetMapping(value = "/{corsoId}", produces = "application/json")

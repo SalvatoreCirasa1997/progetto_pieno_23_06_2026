@@ -21,6 +21,8 @@ import it.pirelli.colloquiopieno.service.CorsoService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -58,6 +60,28 @@ public class CorsoServiceImpl implements CorsoService {
                 .toList();
 
         log.info("Fine del servizio getAll per recuperare tutti i corsi.");
+        return corsiDto;
+    }
+
+    @Override
+    public Page<CorsoResponseDTO> getAll(Pageable pageable) {
+        log.info("Avvio del servizio getAll paginato per recuperare i corsi.");
+
+        Page<CorsoResponseDTO> corsiDto = corsoRepository.findAll(pageable)
+                .map(corso -> {
+
+                    CorsoResponseDTO corsoDto = corsoMapper.toDto(corso);
+
+                    AulaResponseDTO aulaDto = aulaMapper.toDto(corso.getAula());
+                    MateriaResponseDTO materiaDto = materiaMapper.toDto(corso.getMateria());
+
+                    corsoDto.setAula(aulaDto);
+                    corsoDto.setMateria(materiaDto);
+
+                    return corsoDto;
+                });
+
+        log.info("Fine del servizio getAll paginato.");
         return corsiDto;
     }
 
